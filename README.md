@@ -17,3 +17,7 @@
 - created Authinticated. User cannot enter into the feedpage ..etc. without loggedIn
 - created Logout
 - created Profile
+- Maked Api call on Feed api and Stored it in reduxToolkit Store
+- Created Validations and built the UserCard
+- Created Edit profile feature
+- created Toast for saved profile

@@ -8,7 +8,9 @@ const UserCard = ({ user }) => {
         </figure>
         <div className="card-body">
           <h2 className="card-title">{firstName}</h2>
+          <p className=""> Age: {age} </p>
           <p className="flex"> {about} </p>
+
           <div className="card-actions  flex justify-center my-3">
             <button className="btn btn-secondary">Ignore</button>
             <button className="btn btn-primary">Interested</button>
