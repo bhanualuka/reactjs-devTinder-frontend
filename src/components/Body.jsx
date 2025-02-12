@@ -40,7 +40,7 @@ const Body = () => {
     <div>
       <Navbar />
       <Outlet />
-      <Footer />
+      {/* {user && <Footer />} */}
     </div>
   );
 };
