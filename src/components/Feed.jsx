@@ -14,16 +14,21 @@ const Feed = () => {
       const res = await axios.get(`${BASE_URL}/feed`, {
         withCredentials: true,
       });
-      dispatch(addFeed(res.data));
+      dispatch(addFeed(res?.data));
       //   console.log(res.data);
     } catch (err) {
       console.error(err);
     }
   };
 
+  console.log(feed);
+
   useEffect(() => {
     getFeed();
   }, []);
+
+  if (!feed) return;
+  if (feed.length < 0) return <h1> No New Users Found </h1>;
 
   return <div>{feed && <UserCard user={feed[0]} />}</div>;
 };

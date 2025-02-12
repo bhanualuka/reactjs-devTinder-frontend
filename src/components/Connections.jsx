@@ -7,7 +7,6 @@ import { addConnections } from "../utils/reduxToolkit/slices/connectionSlice";
 const Connections = () => {
   const dispatch = useDispatch();
   const connections = useSelector((state) => state.connections);
-  console.log(connections);
 
   const fetchConnections = async () => {
     try {
@@ -20,8 +19,6 @@ const Connections = () => {
           res.data.data.filter((connection) => connection !== null)
         )
       );
-
-      console.log(res.data.data);
     } catch (err) {
       console.error(err);
     }

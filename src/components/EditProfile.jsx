@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { addUser } from "../utils/reduxToolkit/slices/userSlice";
 
 const EditProfile = ({ user }) => {
+  const [userId, setUserId] = useState(user._id);
   const [firstName, setFirstName] = useState(user.firstName);
   const [lastName, setLastName] = useState(user.lastName);
   const [photoUrl, setPhotoUrl] = useState(user.photoUrl);
@@ -159,7 +160,7 @@ const EditProfile = ({ user }) => {
         </div>
 
         <UserCard
-          user={{ firstName, lastName, age, photoUrl, about, gendar }}
+          user={{ userId, firstName, lastName, age, photoUrl, about, gendar }}
         />
       </div>
 
