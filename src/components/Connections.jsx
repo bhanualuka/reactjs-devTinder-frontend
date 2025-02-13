@@ -85,17 +85,23 @@ import { addConnections } from "../utils/reduxToolkit/slices/connectionSlice";
 const Connections = () => {
   const dispatch = useDispatch();
   const connections = useSelector((state) => state.connections);
+  console.log(connections);
 
   const fetchConnections = async () => {
     try {
       const res = await axios.get(`${BASE_URL}/user/connections`, {
         withCredentials: true,
       });
-      dispatch(
+
+      const filteredConnections = res.data.data.filter(
+        (connection) => connection !== null
+      );
+      dispatch(addConnections(filteredConnections));
+      /*  dispatch(
         addConnections(
           res.data.data.filter((connection) => connection !== null)
         )
-      );
+      ); */
     } catch (err) {
       console.error(err);
     }
@@ -128,9 +134,6 @@ const Connections = () => {
                     className="w-24 h-24 rounded-full mx-auto sm:mx-0 object-cover"
                     src={photoUrl}
                     alt="User Profile"
-                    onError={(e) => {
-                      e.target.src = "https://via.placeholder.com/150"; // Fallback image
-                    }}
                   />
                 </div>
 

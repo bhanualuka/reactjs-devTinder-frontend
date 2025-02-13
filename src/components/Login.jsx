@@ -170,8 +170,8 @@ import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../utils/constants/constants";
 
 const Login = () => {
-  const [emailId, setEmailId] = useState("@gmail.com");
-  const [password, setPassword] = useState("@123");
+  const [emailId, setEmailId] = useState("");
+  const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [isLogin, setIsLogin] = useState(true);
@@ -218,7 +218,6 @@ const Login = () => {
       );
       dispatch(addUser(res.data.data));
       console.log(res.data.data);
-
       return navigate("/profile");
     } catch (err) {
       console.error(err);

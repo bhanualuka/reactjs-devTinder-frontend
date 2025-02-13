@@ -153,7 +153,10 @@ const Requests = () => {
 
   if (!connectionRequests || connectionRequests.length === 0) {
     return (
-      <h1 className="text-center text-white text-3xl my-10">Loading...</h1>
+      <h1 className="text-center text-white text-3xl my-10">
+        {" "}
+        No new Requests{" "}
+      </h1>
     );
   }
 
