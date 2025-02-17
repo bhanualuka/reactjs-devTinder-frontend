@@ -23,4 +23,4 @@
 - created Toast for saved profile
   -created all my connections feature page
 - creaetd all my connections requests feature page
--
+- created responsviness for all pages
