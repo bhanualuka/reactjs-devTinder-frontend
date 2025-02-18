@@ -504,6 +504,8 @@ const EditProfile = ({ user }) => {
         }
       );
 
+      console.log(res.data.data);
+
       dispatch(addUser(res.data.data));
       setShowToast(true);
 
