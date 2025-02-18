@@ -472,8 +472,11 @@ import axios from "axios";
 import { BASE_URL } from "../utils/constants/constants";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/reduxToolkit/slices/userSlice";
+import { useCookies } from "react-cookie";
 
 const EditProfile = ({ user }) => {
+  console.log(user, "user...");
+
   const [userId, setUserId] = useState(user._id);
   const [firstName, setFirstName] = useState(user.firstName);
   const [lastName, setLastName] = useState(user.lastName);
@@ -483,6 +486,7 @@ const EditProfile = ({ user }) => {
   const [about, setAbout] = useState(user.about);
   const [error, setError] = useState("");
   const [showToast, setShowToast] = useState(false);
+  const [cookies] = useCookies(["Token"]);
 
   const dispatch = useDispatch();
 
@@ -493,6 +497,9 @@ const EditProfile = ({ user }) => {
         `${BASE_URL}/profile/edit`,
         { firstName, lastName, age, photoUrl, about, gendar },
         {
+          headers: {
+            Authorization: `Bearer ${cookies.Token}`,
+          },
           withCredentials: true,
         }
       );

@@ -81,8 +81,11 @@ import { BASE_URL } from "../utils/constants/constants";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addConnections } from "../utils/reduxToolkit/slices/connectionSlice";
+import { useCookies } from "react-cookie";
 
 const Connections = () => {
+  const [cookies] = useCookies(["Token"]);
+
   const dispatch = useDispatch();
   const connections = useSelector((state) => state.connections);
   console.log(connections);
@@ -90,6 +93,9 @@ const Connections = () => {
   const fetchConnections = async () => {
     try {
       const res = await axios.get(`${BASE_URL}/user/connections`, {
+        headers: {
+          Authorization: `Bearer ${cookies.Token}`,
+        },
         withCredentials: true,
       });
 

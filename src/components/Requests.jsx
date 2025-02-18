@@ -113,8 +113,10 @@ import {
   addUserRequests,
   removeUserRequest,
 } from "../utils/reduxToolkit/slices/requestsSlice";
+import { useCookies } from "react-cookie";
 
 const Requests = () => {
+  const [cookies] = useCookies(["Token"]);
   const dispatch = useDispatch();
   const connectionRequests = useSelector((state) => state.requests);
 
@@ -124,6 +126,9 @@ const Requests = () => {
       const res = await axios.get(
         `${BASE_URL}/user/requests/received/pending`,
         {
+          headers: {
+            Authorization: `Bearer ${cookies.Token}`,
+          },
           withCredentials: true,
         }
       );
@@ -139,7 +144,12 @@ const Requests = () => {
       const res = await axios.post(
         `${BASE_URL}/request/review/${status}/${_id}`,
         {},
-        { withCredentials: true }
+        {
+          headers: {
+            Authorization: `Bearer ${cookies.Token}`,
+          },
+          withCredentials: true,
+        }
       );
       dispatch(removeUserRequest(_id));
     } catch (err) {

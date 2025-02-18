@@ -163,11 +163,12 @@ export default Login;
  */
 
 import axios from "axios";
-import { use, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/reduxToolkit/slices/userSlice";
 import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../utils/constants/constants";
+import { useCookies } from "react-cookie";
 
 const Login = () => {
   const [emailId, setEmailId] = useState("");
@@ -176,6 +177,7 @@ const Login = () => {
   const [lastName, setLastName] = useState("");
   const [isLogin, setIsLogin] = useState(true);
   const [error, setError] = useState("");
+  const [cookies, setCookie] = useCookies(["Token"]);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -193,8 +195,8 @@ const Login = () => {
         }
       );
 
-      dispatch(addUser(res.data));
-      console.log(res.data);
+      dispatch(addUser(res.data.user));
+      setCookie("Token", res.data.token, { path: "/" });
 
       navigate("/");
     } catch (err) {
@@ -225,6 +227,11 @@ const Login = () => {
     }
   };
 
+  useEffect(() => {
+    if (cookies.Token) {
+      navigate("/");
+    }
+  }, []);
   return (
     <>
       <div className="flex justify-center my-3">

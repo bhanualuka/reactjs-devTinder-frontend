@@ -82,16 +82,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { BASE_URL } from "../utils/constants/constants";
 import { removeUser } from "../utils/reduxToolkit/slices/userSlice";
+import { useCookies } from "react-cookie";
 
 const Navbar = () => {
   const user = useSelector((state) => state.user);
+  console.log(user, "user");
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const [cookies, setCookie, removeCookie] = useCookies(["Token"]);
   const handleLogout = async () => {
     try {
       await axios.post(`${BASE_URL}/logout`, {}, { withCredentials: true });
       dispatch(removeUser());
+      removeCookie("Token", { path: "/" });
       navigate("/login");
     } catch (err) {
       console.error(err);
@@ -115,7 +118,7 @@ const Navbar = () => {
         {user && (
           <div className="flex-none gap-2">
             {/* Welcome Message */}
-            <p className="hidden lg:block">Welcome {user.firstName}👋</p>
+            <p className="hidden lg:block">Welcome {user?.firstName}👋</p>
 
             {/* Profile Dropdown */}
             <div className="dropdown dropdown-end mx-4">
@@ -125,7 +128,7 @@ const Navbar = () => {
                 className="btn btn-ghost btn-circle avatar"
               >
                 <div className="w-10 rounded-full">
-                  <img alt="user photo" src={user.photoUrl} />
+                  <img alt="user photo" src={user?.photoUrl} />
                 </div>
               </div>
               <ul

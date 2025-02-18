@@ -4,8 +4,11 @@ import axios from "axios";
 import { BASE_URL } from "../utils/constants/constants";
 import { useDispatch } from "react-redux";
 import { removeUserFromFeed } from "../utils/reduxToolkit/slices/feedSlice";
+import { useCookies } from "react-cookie";
 
 const UserCard = ({ user }) => {
+  const [cookies] = useCookies(["Token"]);
+
   const { _id, firstName, lastName, age, skills, gendar, photoUrl, about } =
     user;
 
@@ -17,6 +20,9 @@ const UserCard = ({ user }) => {
         `${BASE_URL}/request/send/${status}/${userId}`,
         {},
         {
+          headers: {
+            Authorization: `Bearer ${cookies.Token}`,
+          },
           withCredentials: true,
         }
       );
