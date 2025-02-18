@@ -220,6 +220,7 @@ const Login = () => {
         }
       );
       dispatch(addUser(res.data.data));
+      setCookie("Token", res.data.token, { path: "/" });
       console.log(res.data.data);
       return navigate("/profile");
     } catch (err) {
