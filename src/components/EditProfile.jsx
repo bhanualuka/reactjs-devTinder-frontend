@@ -504,14 +504,15 @@ const EditProfile = ({ user }) => {
         }
       );
 
-      console.log(res.data.data);
+      if (res && res.data) {
+        console.log(res.data.data);
+        dispatch(addUser(res.data.data));
 
-      dispatch(addUser(res.data.data));
-      setShowToast(true);
-
-      setTimeout(() => {
-        setShowToast(false);
-      }, 3000);
+        setShowToast(true); // Show success toast
+        setTimeout(() => setShowToast(false), 3000);
+      } else {
+        throw new Error("Invalid response from server"); // ✅ Added fallback error
+      }
     } catch (err) {
       setError(err.response.data);
     }
