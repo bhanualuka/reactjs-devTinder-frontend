@@ -511,7 +511,7 @@ const EditProfile = ({ user }) => {
         setShowToast(true); // Show success toast
         setTimeout(() => setShowToast(false), 3000);
       } else {
-        throw new Error("Invalid response from server"); // ✅ Added fallback error
+        throw new Error("Invalid response from server");
       }
     } catch (err) {
       setError(err.response.data);
@@ -601,6 +601,7 @@ const EditProfile = ({ user }) => {
       <div className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg mt-6 sm:mt-0">
         <UserCard
           user={{ userId, firstName, lastName, age, photoUrl, about, gendar }}
+          hideActions={true}
         />
       </div>
 

@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { removeUserFromFeed } from "../utils/reduxToolkit/slices/feedSlice";
 import { useCookies } from "react-cookie";
 
-const UserCard = ({ user }) => {
+const UserCard = ({ user, hideActions = false }) => {
   const [cookies] = useCookies(["Token"]);
 
   const { _id, firstName, lastName, age, skills, gendar, photoUrl, about } =

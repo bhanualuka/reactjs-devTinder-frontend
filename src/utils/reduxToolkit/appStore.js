@@ -6,6 +6,14 @@ import feedReducer from "./slices/feedSlice";
 import connectionReducer from "./slices/connectionSlice";
 import requestsReducer from "./slices/requestsSlice";
 import { combineReducers } from "redux";
+import {
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from "redux-persist"; // Actions that Redux Persist dispatches
 
 // Define persist config
 const persistConfig = {
@@ -27,6 +35,14 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 // Configure store with persisted reducer
 const appStore = configureStore({
   reducer: persistedReducer,
+
+  // Added MiddleWare
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER], // Ignore Redux Persist actions to avoid serialization warnings
+      },
+    }),
 });
 
 const persistor = persistStore(appStore); // Create a persistor for the store

@@ -182,10 +182,15 @@ const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const handleGuest = async () => {
+    setEmailId("test@gmail.com");
+    setPassword("Test@123");
+  };
+
   const handleLogin = async () => {
     try {
       const res = await axios.post(
-        ` ${BASE_URL}/login`,
+        `${BASE_URL}/login`,
         {
           emailId,
           password,
@@ -220,9 +225,11 @@ const Login = () => {
         }
       );
       dispatch(addUser(res.data.data));
+
       setCookie("Token", res.data.token, { path: "/" });
       console.log(res.data.data);
-      return navigate("/profile");
+      console.log(cookies);
+      navigate("/");
     } catch (err) {
       console.error(err);
     }
@@ -231,8 +238,11 @@ const Login = () => {
   useEffect(() => {
     if (cookies.Token) {
       navigate("/");
+    } else if (emailId === "test@gmail.com" && password === "Test@123") {
+      handleLogin();
     }
-  }, []);
+  }, [cookies.Token, emailId, password]);
+
   return (
     <>
       <div className="flex justify-center my-3">
@@ -311,6 +321,15 @@ const Login = () => {
               >
                 {isLogin ? "Login" : "SignUp"}
               </button>
+
+              {isLogin && (
+                <button
+                  className="btn btn-primary w-full sm:w-auto"
+                  onClick={handleGuest}
+                >
+                  Login as Guest
+                </button>
+              )}
             </div>
             <p
               className="m-auto cursor-pointer text-center text-sm sm:text-base"

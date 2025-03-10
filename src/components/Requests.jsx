@@ -114,6 +114,7 @@ import {
   removeUserRequest,
 } from "../utils/reduxToolkit/slices/requestsSlice";
 import { useCookies } from "react-cookie";
+import EmptyRequest from "./EmptyRequest";
 
 const Requests = () => {
   const [cookies] = useCookies(["Token"]);
@@ -162,12 +163,7 @@ const Requests = () => {
   }, []);
 
   if (!connectionRequests || connectionRequests.length === 0) {
-    return (
-      <h1 className="text-center text-white text-3xl my-10">
-        {" "}
-        No new Requests{" "}
-      </h1>
-    );
+    return <EmptyRequest />;
   }
 
   return (

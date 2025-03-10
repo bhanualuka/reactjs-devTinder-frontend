@@ -1,5 +1,4 @@
 import axios from "axios";
-import Footer from "./Footer";
 import Navbar from "./Navbar";
 
 import { Outlet, useNavigate } from "react-router-dom";

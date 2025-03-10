@@ -82,6 +82,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addConnections } from "../utils/reduxToolkit/slices/connectionSlice";
 import { useCookies } from "react-cookie";
+import EmptyConnection from "./EmptyConnection";
 
 const Connections = () => {
   const [cookies] = useCookies(["Token"]);
@@ -118,7 +119,7 @@ const Connections = () => {
   }, []);
 
   if (!connections) return;
-  if (connections.length === 0) return <h1> No Connections Found </h1>;
+  if (connections.length === 0) return <EmptyConnection />;
 
   return (
     <div className="text-center my-10">
